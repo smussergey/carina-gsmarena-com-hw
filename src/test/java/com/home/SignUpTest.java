@@ -14,11 +14,11 @@ import org.testng.annotations.Test;
 
 public class SignUpTest implements IAbstractTest {
 
-    @Test()
+    @Test(description = "Test confirmation registration is shown when registration data is correct")
     @MethodOwner(owner = "Smus Sergii")
     @TestPriority(Priority.P1)
     @TestLabel(name = "feature", value = {"web", "smoke"})
-    public void testConfirmationRegistrationIsShownWhenRegistrationDataIsCorrect() {
+    public void testRegistrationOfNewAccount() {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
@@ -27,15 +27,15 @@ public class SignUpTest implements IAbstractTest {
         Assert.assertTrue(topBar.isUIObjectPresent(2), "Top bar wasn't found!");
 
         SignUpPage signUpPage = topBar.openSignUpPage();
-        Assert.assertTrue(signUpPage.isPageOpened(), "\"Sign Up\" page is not opened!");
+        Assert.assertTrue(signUpPage.isPageOpened(), "Sign Up page is not opened!");
 
-        signUpPage.enterNickName(StringGenerator.getUniqueItemName());
-        signUpPage.enterEmail(StringGenerator.generateEmail());
-        signUpPage.enterPassword(StringGenerator.generateWordAN(10));
-        signUpPage.selectConformationForStoreData();
-        signUpPage.selectConformationForAge();
-        signUpPage.submitForm();
+        signUpPage.typeNickName(StringGenerator.getUniqueItemName());
+        signUpPage.typeEmail(StringGenerator.generateEmail());
+        signUpPage.typePassword(StringGenerator.generateWordAN(10));
+        signUpPage.checkIAgreeForGSMArenaToStore();
+        signUpPage.checkIAmAtLeast16YearsOld();
+        signUpPage.clickSubmitButton();
 
-        Assert.assertTrue(signUpPage.isSuccessfulRegistrationConfirmationAnnouncementVisible(), "Registration is not successful");
+        Assert.assertTrue(signUpPage.isYourAccountWasCreatedTitleVisible(), "Registration is not successful");
     }
 }

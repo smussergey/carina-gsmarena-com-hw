@@ -12,10 +12,10 @@ public class TopBar extends AbstractUIObject {
     private ExtendedWebElement signUpButton;
 
     @FindBy(id = "login-active")
-    private ExtendedWebElement logInButton;
+    private ExtendedWebElement loginButton;
 
     @FindBy(id = "login-popup2")
-    private LoginPopUp logInPopUp;
+    private LoginPopUp loginPopUp;
 
     public TopBar(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
@@ -27,9 +27,9 @@ public class TopBar extends AbstractUIObject {
         return new SignUpPage(driver);
     }
 
-    public LoginPopUp getLogInPopUp() {
-        logInButton.click();
-        return logInPopUp;
+    public LoginPopUp getLoginPopUp() {
+        loginButton.click();
+        return loginPopUp;
     }
 
 }

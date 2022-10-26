@@ -3,7 +3,6 @@ package com.home.gui.components;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
 import com.home.gui.pages.LoginPage;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -25,7 +24,7 @@ public class LoginPopUp extends AbstractUIObject {
     private ExtendedWebElement passwordInputTextField;
 
     @FindBy(xpath = "//span[@id='login-popup2']//input[@id='nick-submit']")
-    private ExtendedWebElement logInButton;
+    private ExtendedWebElement loginButton;
 
     @FindBy(xpath = "//a[@class='forgot']")
     private ExtendedWebElement iForgotMyPasswordButton;
@@ -46,12 +45,12 @@ public class LoginPopUp extends AbstractUIObject {
         return emailInputTextField.isPresent();
     }
 
-    public boolean doesEmailInputTextFieldIntractable() {
+    public boolean isEmailInputTextFieldIntractable() {
         emailInputTextField.type("");
         return true;
     }
 
-    public void enterEmail(String email) {
+    public void typeEmail(String email) {
         LOGGER.info("Email = {}", email);
         emailInputTextField.type(email);
     }
@@ -60,37 +59,36 @@ public class LoginPopUp extends AbstractUIObject {
         return passwordInputTextField.isPresent();
     }
 
-    public boolean doesPasswordInputTextFieldIntractable() {
+    public boolean isPasswordInputTextFieldIntractable() {
         passwordInputTextField.type("");
         return true;
     }
 
-    public void enterPassword(String password) {
+    public void typePassword(String password) {
         LOGGER.info("Password = {}", password);
         passwordInputTextField.type(password);
     }
 
     public boolean isLogInButtonPresent() {
-        return logInButton.isPresent();
+        return loginButton.isPresent();
     }
 
 
     public boolean isLogInButtonClickable() {
-        return logInButton.isClickable();
+        return loginButton.isClickable();
     }
 
-    public void hooverLogInButton() {
-        logInButton.hover();
+    public void hoverLoginButton() {
+        loginButton.hover();
     }
 
-    public String getLogInButtonColor() {
-        logInButton.pause(1);
-        return (String) ((JavascriptExecutor) driver).executeScript("return window" +
-                ".getComputedStyle(document.getElementById('nick-submit')).getPropertyValue('background')");
+    public String getLoginButtonColor() {
+        loginButton.pause(1);
+    return loginButton.getElement().getCssValue("background");
     }
 
-    public LoginPage submitForm() {
-        logInButton.click();
+    public LoginPage clickLoginButton() {
+        loginButton.click();
         return new LoginPage(driver);
     }
 

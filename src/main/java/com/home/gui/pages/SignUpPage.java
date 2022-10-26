@@ -24,55 +24,51 @@ public class SignUpPage extends AbstractPage {
     private ExtendedWebElement passwordInputTextField;
 
     @FindBy(xpath = "//label[@for='iagree1']")
-    private ExtendedWebElement conformationForStoreDataCheckBox;
+    private ExtendedWebElement IAgreeForGSMArenaToStoreMyCheckbox;
 
     @FindBy(xpath = "//label[@for='iagree2']")
-    private ExtendedWebElement conformationForAgeCheckBox;
+    private ExtendedWebElement IAmAtLeast16YearsOldCheckbox;
 
     @FindBy(xpath = "//div[@id='user-submit']//input[@id='nick-submit']")
     private ExtendedWebElement submitButton;
 
-    @FindBy(xpath = "//div[contains(@class, 'res-success')]/*[contains (text(), 'Your account was created.')]")
-    private ExtendedWebElement successfulRegistrationTextField;
+    @FindBy(xpath = "//div[contains(@class, 'res-success')]//h3[contains (text(), 'Your account was created.')]")
+    private ExtendedWebElement yourAccountWasCreatedTitle;
 
     public SignUpPage(WebDriver driver) {
         super(driver);
         setPageAbsoluteURL(signUpPageUrl);
     }
 
-    public void enterNickName(String nickName) {
+    public void typeNickName(String nickName) {
         LOGGER.info("NickName = {}", nickName);
         nickNameInputTextField.type(nickName);
     }
 
-    public void enterEmail(String email) {
+    public void typeEmail(String email) {
         LOGGER.info("Email = {}", email);
         emailInputTextField.type(email);
     }
 
-    public void enterPassword(String passWord) {
+    public void typePassword(String passWord) {
         LOGGER.info("PassWord = {}", passWord);
         passwordInputTextField.type(passWord);
     }
 
-    public void selectConformationForStoreData() {
-        conformationForStoreDataCheckBox.click();
+    public void checkIAgreeForGSMArenaToStore() {
+        IAgreeForGSMArenaToStoreMyCheckbox.click();
     }
 
-    public void selectConformationForAge() {
-        conformationForAgeCheckBox.click();
+    public void checkIAmAtLeast16YearsOld() {
+        IAmAtLeast16YearsOldCheckbox.click();
     }
 
-    public void submitForm() {
-        if (submitButton.isClickable()) {
+    public void clickSubmitButton() {
             submitButton.click();
-        } else {
-            throw new RuntimeException("Submit button is not clickable, check input fields");
-        }
     }
 
-    public boolean isSuccessfulRegistrationConfirmationAnnouncementVisible() {
-        return successfulRegistrationTextField.isVisible();
+    public boolean isYourAccountWasCreatedTitleVisible() {
+        return yourAccountWasCreatedTitle.isVisible();
     }
 
 }

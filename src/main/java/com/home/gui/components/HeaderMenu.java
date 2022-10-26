@@ -1,7 +1,7 @@
 package com.home.gui.components;
 
 import com.home.gui.pages.*;
-import com.home.gui.pages.other.MerchNewPage;
+import com.home.gui.pages.MerchNewPage;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
 import org.openqa.selenium.SearchContext;

@@ -1,4 +1,4 @@
-package com.home.gui.pages.other;
+package com.home.gui.pages;
 
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;

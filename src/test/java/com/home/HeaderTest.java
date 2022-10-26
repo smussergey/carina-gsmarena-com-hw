@@ -2,7 +2,7 @@ package com.home;
 
 import com.home.gui.components.HeaderMenu;
 import com.home.gui.pages.*;
-import com.home.gui.pages.other.MerchNewPage;
+import com.home.gui.pages.MerchNewPage;
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
 import com.qaprosoft.carina.core.foundation.utils.tag.Priority;
@@ -16,11 +16,11 @@ import java.util.Set;
 
 public class HeaderTest implements IAbstractTest {
 
-    @Test()
+    @Test(description = "Test Header buttons are present and can open appropriate pages")
     @MethodOwner(owner = "Smus Sergii")
     @TestPriority(Priority.P4)
     @TestLabel(name = "feature", value = {"web", "smoke"})
-    public void testHeaderButtonsArePresentAndOpensPages() {
+    public void testHeaderButtons() {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");

@@ -13,11 +13,11 @@ import org.testng.asserts.SoftAssert;
 
 public class FooterTest implements IAbstractTest {
 
-    @Test()
+    @Test(description = "Test Footer buttons are present and can open appropriate pages")
     @MethodOwner(owner = "Smus Sergii")
     @TestPriority(Priority.P5)
     @TestLabel(name = "feature", value = {"web", "smoke"})
-    public void testFooterButtonsArePresentAndOpensPages() {
+    public void testFooterButtons() {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");

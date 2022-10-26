@@ -15,7 +15,10 @@ import org.testng.asserts.SoftAssert;
 
 public class LogInTest implements IAbstractTest {
 
-    @Test()
+    private static final String TEST_DATA_EMAIL = "semtestsem029@gmail.com";
+    private static final String TEST_DATA_PASSWORD = "myPassword7";
+
+    @Test(description = "Test presents, intractability of Login popup fields")
     @MethodOwner(owner = "Smus Sergii")
     @TestPriority(Priority.P3)
     @TestLabel(name = "feature", value = {"web", "smoke"})
@@ -27,21 +30,21 @@ public class LogInTest implements IAbstractTest {
         TopBar topBar = homePage.getTopBar();
         Assert.assertTrue(topBar.isUIObjectPresent(2), "Top bar wasn't found!");
 
-        LoginPopUp popUp = topBar.getLogInPopUp();
+        LoginPopUp popUp = topBar.getLoginPopUp();
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(popUp.isTitlePresent(), "Title is not present");
         softAssert.assertEquals(popUp.readTitleText(), "Login", "Title does not equal Login");
 
         softAssert.assertTrue(popUp.isEmailInputTextFieldPresent(), "Email field is not present");
-        softAssert.assertTrue(popUp.doesEmailInputTextFieldIntractable(), "We cannot enter text into Email field");
+        softAssert.assertTrue(popUp.isEmailInputTextFieldIntractable(), "We cannot enter text into Email field");
 
         softAssert.assertTrue(popUp.isPasswordInputTextFieldPresent(), "Password field is not present");
-        softAssert.assertTrue(popUp.doesPasswordInputTextFieldIntractable(), "We cannot enter text into Password field");
+        softAssert.assertTrue(popUp.isPasswordInputTextFieldIntractable(), "We cannot enter text into Password field");
 
         softAssert.assertTrue(popUp.isLogInButtonPresent(), "Login button is not present");
-        popUp.hooverLogInButton();
-        softAssert.assertTrue(popUp.getLogInButtonColor().contains("rgb(213, 0, 0)"), "Button has different color");
+        popUp.hoverLoginButton();
+        softAssert.assertTrue(popUp.getLoginButtonColor().contains("rgb(213, 0, 0)"), "Button has different color");
         softAssert.assertTrue(popUp.isLogInButtonClickable(), "Login button is not clickable");
 
         softAssert.assertTrue(popUp.isIForgotMyPasswordButtonPresent(), "\"I forgot my password\" button is not present");
@@ -49,11 +52,11 @@ public class LogInTest implements IAbstractTest {
         softAssert.assertAll();
     }
 
-    @Test()
+    @Test(description = "Test login into account with valid data ")
     @MethodOwner(owner = "Smus Sergii")
     @TestPriority(Priority.P2)
     @TestLabel(name = "feature", value = {"web", "acceptance"})
-    public void testConfirmationLoginPageIsOpenedWhenRegistrationDataIsCorrect() {
+    public void testSuccessLoginToAccount() {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
@@ -61,11 +64,11 @@ public class LogInTest implements IAbstractTest {
         TopBar topBar = homePage.getTopBar();
         Assert.assertTrue(topBar.isUIObjectPresent(2), "Top bar wasn't found!");
 
-        LoginPopUp loginPopUp = topBar.getLogInPopUp();
+        LoginPopUp loginPopUp = topBar.getLoginPopUp();
 
-        loginPopUp.enterEmail("semtestsem029@gmail.com");
-        loginPopUp.enterPassword("myPassword7");
-        LoginPage loginPage = loginPopUp.submitForm();
+        loginPopUp.typeEmail(TEST_DATA_EMAIL);
+        loginPopUp.typePassword(TEST_DATA_PASSWORD);
+        LoginPage loginPage = loginPopUp.clickLoginButton();
 
         Assert.assertTrue(loginPage.isPageOpened(), "Login page is not opened");
     }

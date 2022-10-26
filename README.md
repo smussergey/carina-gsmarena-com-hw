@@ -1,5 +1,5 @@
 # Run tests
-# mvn clean test -Dsuite=web
+# mvn clean test
 
 
 Тесткейс 1 ( реєстрація )
