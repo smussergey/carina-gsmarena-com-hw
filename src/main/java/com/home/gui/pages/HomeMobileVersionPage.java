@@ -3,10 +3,10 @@ package com.home.gui.pages;
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
 
-public class NewsMobileVersionPage extends AbstractPage {
-    private final String newsMobileVersionPageUrl = "https://m.gsmarena.com/news.php3";
+public class HomeMobileVersionPage extends AbstractPage {
+    private final String newsMobileVersionPageUrl = "https://m.gsmarena.com/";
 
-    public NewsMobileVersionPage(WebDriver driver) {
+    public HomeMobileVersionPage(WebDriver driver) {
         super(driver);
         setPageAbsoluteURL(newsMobileVersionPageUrl);
     }

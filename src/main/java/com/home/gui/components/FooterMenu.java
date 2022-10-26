@@ -4,7 +4,6 @@ import com.home.gui.pages.*;
 import com.home.gui.pages.othersites.*;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
-
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 
@@ -15,6 +14,10 @@ public class FooterMenu extends AbstractUIObject {
 
     public FooterMenu(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
+    }
+
+    public ExtendedWebElement getMenuButton() {
+        return menuButton;
     }
 
     public boolean isButtonPresent(FooterMenuIButton button) {
@@ -86,9 +89,9 @@ public class FooterMenu extends AbstractUIObject {
         return new GSMArenaComPage(driver);
     }
 
-    public NewsMobileVersionPage openNewsMobileVersionPage() {
+    public HomeMobileVersionPage openHomeMobileVersionPage() {
         menuButton.format(FooterMenuIButton.MOBILE_VERSION.getValue()).click();
-        return new NewsMobileVersionPage(driver);
+        return new HomeMobileVersionPage(driver);
     }
 
     public AndroidAppPage openAndroidAppPage() {
@@ -119,10 +122,6 @@ public class FooterMenu extends AbstractUIObject {
     public TermsOfUsePage openTermsOfUsePage() {
         menuButton.format(FooterMenuIButton.TERMS_OF_USE.getValue()).click();
         return new TermsOfUsePage(driver);
-    }
-
-    public void scrollToFooter() {
-        menuButton.format(FooterMenuIButton.TERMS_OF_USE.getValue()).scrollTo();
     }
 
 }

@@ -1,16 +1,25 @@
 package com.home.gui.pages;
 
 import com.home.gui.components.FooterMenu;
+import com.home.gui.components.FooterMenuIButton;
 import com.home.gui.components.HeaderMenu;
 import com.home.gui.components.TopBar;
 import com.qaprosoft.carina.core.foundation.utils.Configuration;
 import com.qaprosoft.carina.core.foundation.utils.R;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
+import org.apache.commons.lang3.time.StopWatch;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
 
 public class HomePage extends AbstractPage {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    private static final int NUMBER_OF_MILLISECONDS_IN_ONE_SECOND = 1000;
 
     @FindBy(xpath = "//div[contains(@class, 'top-bar')]")
     private TopBar topBar;
@@ -18,7 +27,7 @@ public class HomePage extends AbstractPage {
     @FindBy(id = "menu")
     private HeaderMenu headerMenu;
 
-    @FindBy(xpath = "//div[@id='footer-side']//div[@id='footmenu']")
+    @FindBy(id = "footer")
     private FooterMenu footerMenu;
 
     @FindBy(xpath = "//button[@aria-label='Toggle Navigation']")
@@ -44,6 +53,27 @@ public class HomePage extends AbstractPage {
 
     public void showHeaderMenu() {
         headerMenuButton.click();
+    }
+
+    public FooterMenu getFooterMenu() {
+        return footerMenu;
+    }
+
+    public void scrollToFooter() {
+        int explicitTimeOut = Integer.valueOf(R.CONFIG.get(Configuration.Parameter.EXPLICIT_TIMEOUT.getKey()));
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+
+        while (footerMenu.getMenuButton().format(FooterMenuIButton.TERMS_OF_USE.getValue()).getText().length() == 0) {
+            ((JavascriptExecutor) getDriver()).executeScript("window.scrollBy(0,document.body.scrollHeight)");
+            if ((stopWatch.getTime() / NUMBER_OF_MILLISECONDS_IN_ONE_SECOND) > explicitTimeOut) {
+                LOGGER.info("Explicit timeOut was exceeded");
+            }
+            pause(0.5);
+        }
+
+        stopWatch.stop();
+        ((JavascriptExecutor) getDriver()).executeScript("window.scrollBy(0,document.body.scrollHeight)");
     }
 
 }

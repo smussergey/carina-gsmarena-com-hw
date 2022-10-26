@@ -27,13 +27,9 @@ public class FooterTest implements IAbstractTest {
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
 
-        NewsPage newsPage = new NewsPage(getDriver());
-        newsPage.open();
-        Assert.assertTrue(newsPage.isPageOpened(), "News page is not opened");
-
-        FooterMenu footerMenu = newsPage.getFooterMenu();
-        Assert.assertTrue(footerMenu.isUIObjectPresent(2), "Footer menu on News page wasn't found!");
-        footerMenu.scrollToFooter();
+        FooterMenu footerMenu = homePage.getFooterMenu();
+        homePage.scrollToFooter();
+        Assert.assertTrue(footerMenu.isUIObjectPresent(2), "Footer menu on Home page wasn't found!");
 
         SoftAssert softAssert = new SoftAssert();
 
@@ -41,33 +37,28 @@ public class FooterTest implements IAbstractTest {
                 .forEach(button -> softAssert.assertTrue(footerMenu.isButtonPresent(button),
                         String.format("%s button is not present", button)));
 
-        homePage = footerMenu.openHomePage();
-        softAssert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
-        newsPage.open();
+        NewsPage newsPage = footerMenu.openNewsPage();
+        softAssert.assertTrue(newsPage.isPageOpened(), "News page is not opened");
 
         ReviewsPage reviewsPage = footerMenu.openReviewsPage();
         softAssert.assertTrue(reviewsPage.isPageOpened(), "Reviews page is not opened");
-        newsPage.open();
 
         ComparePage comparePage = footerMenu.openComparePage();
         softAssert.assertTrue(comparePage.isPageOpened(), "Compare page is not opened");
-        newsPage.open();
 
         CoveragePage coveragePage = footerMenu.openCoveragePage();
         softAssert.assertTrue(coveragePage.isPageOpened(), "Coverage is not opened");
-        newsPage.open();
 
         GlossaryPage glossaryPage = footerMenu.openGlossaryPage();
         softAssert.assertTrue(glossaryPage.isPageOpened(), "Glossary is not opened");
-        newsPage.open();
 
         FAQPage faqPage = footerMenu.openFAQPage();
         softAssert.assertTrue(faqPage.isPageOpened(), "FAQ is not opened");
-        newsPage.open();
 
         RSSFeedPage rssFeedPage = footerMenu.openRSSFeedPage();
         softAssert.assertTrue(rssFeedPage.isPageOpened(), "RSS feed is not opened");
-        newsPage.open();
+        homePage.open();
+        homePage.scrollToFooter();
 
         String currentTab = getDriver().getWindowHandle();
         YoutubePage youtubePage = footerMenu.openYoutubePage();
@@ -95,11 +86,13 @@ public class FooterTest implements IAbstractTest {
 
         GSMArenaComPage gsmArenaComPage = footerMenu.openGSMArenaComPage();
         softAssert.assertTrue(gsmArenaComPage.isPageOpened(), "GSMArena.com page is not opened");
-        newsPage.open();
+        homePage.open();
+        homePage.scrollToFooter();
 
-        NewsMobileVersionPage newsMobileVersionPage = footerMenu.openNewsMobileVersionPage();
-        softAssert.assertTrue(newsMobileVersionPage.isPageOpened(), "News Mobile version page is not opened");
-        newsPage.open();
+        HomeMobileVersionPage homeMobileVersionPage = footerMenu.openHomeMobileVersionPage();
+        softAssert.assertTrue(homeMobileVersionPage.isPageOpened(), "Home Mobile version page is not opened");
+        homePage.open();
+        homePage.scrollToFooter();
 
         currentTab = getDriver().getWindowHandle();
         AndroidAppPage androidAppPage = footerMenu.openAndroidAppPage();
@@ -109,11 +102,9 @@ public class FooterTest implements IAbstractTest {
 
         ToolsPage toolsPage = footerMenu.openToolsPage();
         softAssert.assertTrue(toolsPage.isPageOpened(), "Tools page is not opened");
-        newsPage.open();
 
         ContactPage contactPage = footerMenu.openContactPage();
         softAssert.assertTrue(contactPage.isPageOpened(), "Contact Us page is not opened");
-        newsPage.open();
 
         currentTab = getDriver().getWindowHandle();
         MerchPage merchPage = footerMenu.openMerchStorePage();
@@ -123,13 +114,12 @@ public class FooterTest implements IAbstractTest {
 
         PrivacyPage privacyPage = footerMenu.openPrivacyPage();
         softAssert.assertTrue(privacyPage.isPageOpened(), "Privacy page is not opened");
-        newsPage.open();
 
         TermsOfUsePage termsOfUsePage = footerMenu.openTermsOfUsePage();
         softAssert.assertTrue(termsOfUsePage.isPageOpened(), "Terms of use page is not opened");
 
-        newsPage = footerMenu.openNewsPage();
-        softAssert.assertTrue(newsPage.isPageOpened(), "News page is not opened");
+        homePage = footerMenu.openHomePage();
+        softAssert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
 
         softAssert.assertAll();
     }
