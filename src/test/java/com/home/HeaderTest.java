@@ -1,8 +1,9 @@
 package com.home;
 
 import com.home.gui.components.HeaderMenu;
+import com.home.gui.components.HeaderMenuButton;
 import com.home.gui.pages.*;
-import com.home.gui.pages.MerchNewPage;
+import com.home.gui.pages.othersites.MerchPage;
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
 import com.qaprosoft.carina.core.foundation.utils.tag.Priority;
@@ -12,6 +13,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.util.Arrays;
 import java.util.Set;
 
 public class HeaderTest implements IAbstractTest {
@@ -31,16 +33,9 @@ public class HeaderTest implements IAbstractTest {
 
         SoftAssert softAssert = new SoftAssert();
 
-        softAssert.assertTrue(headerMenu.isHomeButtonPresent(), "Home button is not present");
-        softAssert.assertTrue(headerMenu.isNewSButtonPresent(), "News button is not present");
-        softAssert.assertTrue(headerMenu.isReviewsButtonPresent(), "Reviews button is not present");
-        softAssert.assertTrue(headerMenu.isVideosButtonPresent(), "Videos button is not present");
-        softAssert.assertTrue(headerMenu.isFeaturedButtonPresent(), "Featured button is not present");
-        softAssert.assertTrue(headerMenu.isPhoneFinderButtonPresent(), "Phone Finder button is not present");
-        softAssert.assertTrue(headerMenu.isDealsPresent(), "Deals button is not present");
-        softAssert.assertTrue(headerMenu.isMerchNewButtonPresent(), "Merch New button is not present");
-        softAssert.assertTrue(headerMenu.isCoverageButtonPresent(), "Coverage button is not present");
-        softAssert.assertTrue(headerMenu.isContactButtonPresent(), "Contact button is not present");
+        Arrays.stream(HeaderMenuButton.values())
+                .forEach(button -> softAssert.assertTrue(headerMenu.isButtonPresent(button),
+                        String.format("%s button is not present", button)));
 
         NewsPage newsPage = headerMenu.openNewsPage();
         softAssert.assertTrue(newsPage.isPageOpened(), "News page is not opened");
@@ -61,10 +56,10 @@ public class HeaderTest implements IAbstractTest {
         softAssert.assertTrue(dealsPage.isPageOpened(), "Deals page is not opened");
 
         String currentTab = getDriver().getWindowHandle();
-        MerchNewPage merchNewPage = headerMenu.openMerchNewPage();
+        MerchPage merchNewPage = headerMenu.openMerchNewPage();
         switchToNewTab(currentTab);
-        currentTab = getDriver().getWindowHandle();
         softAssert.assertTrue(merchNewPage.isPageOpened(), "Merch New page is not opened");
+        currentTab = getDriver().getWindowHandle();
         switchToNewTab(currentTab);
 
         CoveragePage coveragePage = headerMenu.openCoveragePage();
@@ -77,7 +72,6 @@ public class HeaderTest implements IAbstractTest {
         softAssert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
 
         softAssert.assertAll();
-
     }
 
     private void switchToNewTab(String oldTab) {

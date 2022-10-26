@@ -18,7 +18,7 @@ public class HomePage extends AbstractPage {
     @FindBy(id = "menu")
     private HeaderMenu headerMenu;
 
-    @FindBy(id = "footmenu")
+    @FindBy(xpath = "//div[@id='footer-side']//div[@id='footmenu']")
     private FooterMenu footerMenu;
 
     @FindBy(xpath = "//button[@aria-label='Toggle Navigation']")
@@ -42,16 +42,8 @@ public class HomePage extends AbstractPage {
         return headerMenu;
     }
 
-
-    public FooterMenu getFooterMenu() {
-        return footerMenu;
-    }
-
     public void showHeaderMenu() {
         headerMenuButton.click();
     }
 
-    public void scrollToFooter() {
-        footerMenu.scrollToFooter();
-    }
 }

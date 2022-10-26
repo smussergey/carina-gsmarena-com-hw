@@ -1,20 +1,20 @@
 package com.home.gui.components;
 
-public enum FooterMenuItem {
+public enum HeaderMenuButton {
+    HOME("Home"),
     NEWS("News"),
     REVIEWS("Reviews"),
-    BLOG("Blog"),
+    VIDEOS("Videos"),
+    FEATURED("Featured"),
     PHONE_FINDER("Phone Finder"),
-    TOOLS("Tools"),
-    COMPARE("Compare"),
+    DEALS("Deals"),
+    MERCH_NEW("Merch"),
     COVERAGE("Coverage"),
-    GLOSSARY("Glossary"),
-    CONTACT_US("Contact us"),
-    GSM_ARENA_COM("GSMArena.com");
+    CONTACT("Contact");
 
     private final String value;
 
-    FooterMenuItem(String value) {
+    HeaderMenuButton(String value) {
         this.value = value;
     }
 
@@ -22,4 +22,3 @@ public enum FooterMenuItem {
         return value;
     }
 }
-
