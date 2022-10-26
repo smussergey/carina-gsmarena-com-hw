@@ -70,6 +70,6 @@ public class LogInTest implements IAbstractTest {
         loginPopUp.typePassword(TEST_DATA_PASSWORD);
         LoginPage loginPage = loginPopUp.clickLoginButton();
 
-        Assert.assertTrue(loginPage.isPageOpened(), "Login page is not opened");
+        Assert.assertTrue(loginPage.isLoginSuccessfulTitleVisible(), "Login is not successful");
     }
 }
