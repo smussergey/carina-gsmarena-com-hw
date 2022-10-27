@@ -34,7 +34,7 @@ public class FooterTest implements IAbstractTest {
         SoftAssert softAssert = new SoftAssert();
 
         Arrays.stream(FooterMenuIButton.values())
-                .forEach(button -> softAssert.assertTrue(footerMenu.isButtonPresent(button),
+                .forEach(button -> softAssert.assertTrue(footerMenu.isMenuButtonPresent(button),
                         String.format("%s button is not present", button)));
 
         NewsPage newsPage = footerMenu.openNewsPage();

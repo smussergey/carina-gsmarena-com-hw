@@ -31,7 +31,7 @@ public class HomePage extends AbstractPage {
     private FooterMenu footerMenu;
 
     @FindBy(xpath = "//button[@aria-label='Toggle Navigation']")
-    private ExtendedWebElement headerMenuButton;
+    private ExtendedWebElement headerNavigationMenuButton;
 
     @FindBy(className = "news-column-index")
     private ExtendedWebElement newsColumn;
@@ -51,8 +51,8 @@ public class HomePage extends AbstractPage {
         return headerMenu;
     }
 
-    public void showHeaderMenu() {
-        headerMenuButton.click();
+    public void clickHeaderNavigationMenuButton() {
+        headerNavigationMenuButton.click();
     }
 
     public FooterMenu getFooterMenu() {

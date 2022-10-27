@@ -27,7 +27,7 @@ public class TopBar extends AbstractUIObject {
         return new SignUpPage(driver);
     }
 
-    public LoginPopUp getLoginPopUp() {
+    public LoginPopUp openLoginPopUp() {
         loginButton.click();
         return loginPopUp;
     }

@@ -17,7 +17,7 @@ public class HeaderMenu extends AbstractUIObject {
         super(driver, searchContext);
     }
 
-    public boolean isButtonPresent(HeaderMenuButton button) {
+    public boolean isMenuButtonPresent(HeaderMenuButton button) {
         return menuButton.format(button.getValue()).isPresent();
     }
 

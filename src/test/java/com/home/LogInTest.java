@@ -30,7 +30,8 @@ public class LogInTest implements IAbstractTest {
         TopBar topBar = homePage.getTopBar();
         Assert.assertTrue(topBar.isUIObjectPresent(2), "Top bar wasn't found!");
 
-        LoginPopUp popUp = topBar.getLoginPopUp();
+        LoginPopUp popUp = topBar.openLoginPopUp();
+        Assert.assertTrue(popUp.isUIObjectPresent(2), "Login pop up wasn't found!");
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(popUp.isTitlePresent(), "Title is not present");
@@ -64,7 +65,7 @@ public class LogInTest implements IAbstractTest {
         TopBar topBar = homePage.getTopBar();
         Assert.assertTrue(topBar.isUIObjectPresent(2), "Top bar wasn't found!");
 
-        LoginPopUp loginPopUp = topBar.getLoginPopUp();
+        LoginPopUp loginPopUp = topBar.openLoginPopUp();
 
         loginPopUp.typeEmail(TEST_DATA_EMAIL);
         loginPopUp.typePassword(TEST_DATA_PASSWORD);

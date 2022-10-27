@@ -20,7 +20,7 @@ public class FooterMenu extends AbstractUIObject {
         return menuButton;
     }
 
-    public boolean isButtonPresent(FooterMenuIButton button) {
+    public boolean isMenuButtonPresent(FooterMenuIButton button) {
         return menuButton.format(button.getValue()).isPresent();
     }
 

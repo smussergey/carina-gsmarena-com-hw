@@ -27,14 +27,14 @@ public class HeaderTest implements IAbstractTest {
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
 
-        homePage.showHeaderMenu();
+        homePage.clickHeaderNavigationMenuButton();
         HeaderMenu headerMenu = homePage.getHeaderMenu();
         Assert.assertTrue(headerMenu.isUIObjectPresent(2), "Header menu wasn't found!");
 
         SoftAssert softAssert = new SoftAssert();
 
         Arrays.stream(HeaderMenuButton.values())
-                .forEach(button -> softAssert.assertTrue(headerMenu.isButtonPresent(button),
+                .forEach(button -> softAssert.assertTrue(headerMenu.isMenuButtonPresent(button),
                         String.format("%s button is not present", button)));
 
         NewsPage newsPage = headerMenu.openNewsPage();
