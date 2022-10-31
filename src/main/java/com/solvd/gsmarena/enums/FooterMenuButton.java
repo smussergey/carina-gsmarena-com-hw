@@ -1,6 +1,6 @@
 package com.solvd.gsmarena.enums;
 
-public enum FooterMenuIButton {
+public enum FooterMenuButton {
     HOME("Home"),
     NEWS("News"),
     REVIEWS("Reviews"),
@@ -24,7 +24,7 @@ public enum FooterMenuIButton {
 
     private final String value;
 
-    FooterMenuIButton(String value) {
+    FooterMenuButton(String value) {
         this.value = value;
     }
 

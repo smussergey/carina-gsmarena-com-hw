@@ -1,9 +1,9 @@
 package com.solvd.gsmarena;
 
+import com.qaprosoft.carina.core.gui.AbstractPage;
 import com.solvd.gsmarena.gui.components.HeaderMenu;
 import com.solvd.gsmarena.enums.HeaderMenuButton;
 import com.solvd.gsmarena.gui.pages.*;
-import com.solvd.gsmarena.gui.pages.othersites.MerchPage;
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
 import com.qaprosoft.carina.core.foundation.utils.tag.Priority;
@@ -37,39 +37,24 @@ public class HeaderTest implements IAbstractTest {
                 .forEach(button -> softAssert.assertTrue(headerMenu.isMenuButtonPresent(button),
                         String.format("%s button is not present", button)));
 
-        NewsPage newsPage = headerMenu.openNewsPage();
-        softAssert.assertTrue(newsPage.isPageOpened(), "News page is not opened");
+        Arrays.stream(HeaderMenuButton.values())
+                .forEach(button -> {
+                    if (headerMenu.getMenuButton(button).getElement().getAttribute("target").equals("_blank")) {
+                        String currentTab = getDriver().getWindowHandle();
+                        AbstractPage page = headerMenu.openPage(button);
+                        switchToNewTab(currentTab);
+                        softAssert.assertTrue(page.isPageOpened(), String.format("%s page is not opened", button.getValue()));
+                        currentTab = getDriver().getWindowHandle();
+                        switchToNewTab(currentTab);
 
-        ReviewsPage reviewsPage = headerMenu.openReviewsPage();
-        softAssert.assertTrue(reviewsPage.isPageOpened(), "Reviews page is not opened");
+                    } else {
+                        AbstractPage page = headerMenu.openPage(button);
+                        softAssert.assertTrue(page.isPageOpened(), String.format("%s page is not opened", button.getValue()));
+                    }
+                });
 
-        VideosPage videosPage = headerMenu.openVideosPage();
-        softAssert.assertTrue(videosPage.isPageOpened(), "Videos page is not opened");
-
-        FeaturedPage featuredPage = headerMenu.openFeaturedPage();
-        softAssert.assertTrue(featuredPage.isPageOpened(), "Featured page is not opened");
-
-        PhoneFinderPage phoneFinderPage = headerMenu.openPhoneFinderPage();
-        softAssert.assertTrue(phoneFinderPage.isPageOpened(), "Phone Finder page is not opened");
-
-        DealsPage dealsPage = headerMenu.openDealsPage();
-        softAssert.assertTrue(dealsPage.isPageOpened(), "Deals page is not opened");
-
-        String currentTab = getDriver().getWindowHandle();
-        MerchPage merchNewPage = headerMenu.openMerchNewPage();
-        switchToNewTab(currentTab);
-        softAssert.assertTrue(merchNewPage.isPageOpened(), "Merch New page is not opened");
-        currentTab = getDriver().getWindowHandle();
-        switchToNewTab(currentTab);
-
-        CoveragePage coveragePage = headerMenu.openCoveragePage();
-        softAssert.assertTrue(coveragePage.isPageOpened(), "Coverage is not opened");
-
-        ContactPage contactPage = headerMenu.openContactPage();
-        softAssert.assertTrue(contactPage.isPageOpened(), "Contact page is not opened");
-
-        homePage = headerMenu.openHomePage();
-        softAssert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
+        AbstractPage page = headerMenu.openPage(HeaderMenuButton.HOME);
+        softAssert.assertTrue(page.isPageOpened(), String.format("%s page is not opened", HeaderMenuButton.HOME.getValue()));
 
         softAssert.assertAll();
     }

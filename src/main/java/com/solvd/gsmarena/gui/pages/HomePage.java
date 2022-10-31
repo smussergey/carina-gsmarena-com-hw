@@ -1,7 +1,7 @@
 package com.solvd.gsmarena.gui.pages;
 
+import com.solvd.gsmarena.enums.FooterMenuButton;
 import com.solvd.gsmarena.gui.components.FooterMenu;
-import com.solvd.gsmarena.enums.FooterMenuIButton;
 import com.solvd.gsmarena.gui.components.HeaderMenu;
 import com.solvd.gsmarena.gui.components.TopBar;
 import com.qaprosoft.carina.core.foundation.utils.Configuration;
@@ -60,11 +60,11 @@ public class HomePage extends AbstractPage {
     }
 
     public void scrollToFooter() {
-        int explicitTimeOut = Integer.valueOf(R.CONFIG.get(Configuration.Parameter.EXPLICIT_TIMEOUT.getKey()));
+        int explicitTimeOut = Integer.parseInt(R.CONFIG.get(Configuration.Parameter.EXPLICIT_TIMEOUT.getKey()));
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
-        while (footerMenu.getMenuButton().format(FooterMenuIButton.TERMS_OF_USE.getValue()).getText().length() == 0) {
+        while (footerMenu.getMenuButton(FooterMenuButton.TERMS_OF_USE).getText().length() == 0) {
             ((JavascriptExecutor) getDriver()).executeScript("window.scrollBy(0,document.body.scrollHeight)");
             if ((stopWatch.getTime() / NUMBER_OF_MILLISECONDS_IN_ONE_SECOND) > explicitTimeOut) {
                 LOGGER.info("Explicit timeOut was exceeded");
