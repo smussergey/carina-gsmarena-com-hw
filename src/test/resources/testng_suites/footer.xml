@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite verbose="1" name="GSMArena Demo Tests - Footer tests" parallel="methods">
+
+    <test name="GSM arena web tests">
+        <classes>
+            <class name="com.solvd.gsmarena.FooterTest" />
+        </classes>
+    </test>
+
+</suite>

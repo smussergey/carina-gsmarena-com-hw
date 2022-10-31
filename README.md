@@ -1,3 +1,11 @@
+To run tests:
+//Test Class
+mvn test -Dtest="com.solvd.gsmarena.SignUpTest"
+
+//Suite
+mvn clean test -Dsuite=smoke-login-signup
+
+
 
 Тесткейс 1 ( реєстрація )
 1. Клікнути на кнопку Sing up ( має відкритись відповідна сторінка )
