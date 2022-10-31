@@ -45,8 +45,9 @@ public class LoginPopUp extends AbstractUIObject {
         return emailInputTextField.isPresent();
     }
 
-    public boolean isEmailInputTextFieldIntractable() {
-        emailInputTextField.type("");
+    public boolean isEmailInputTextFieldIntractable(String text) {
+        emailInputTextField.type(text);
+        emailInputTextField.getElement().clear();
         return true;
     }
 
@@ -59,8 +60,9 @@ public class LoginPopUp extends AbstractUIObject {
         return passwordInputTextField.isPresent();
     }
 
-    public boolean isPasswordInputTextFieldIntractable() {
-        passwordInputTextField.type("");
+    public boolean isPasswordInputTextFieldIntractable(String text) {
+        passwordInputTextField.type(text);
+        passwordInputTextField.getElement().clear();
         return true;
     }
 
@@ -100,5 +102,12 @@ public class LoginPopUp extends AbstractUIObject {
         return iForgotMyPasswordButton.isClickable();
     }
 
+    public String getEmailErrorMessage() {
+        return emailInputTextField.getAttribute("validationMessage");
+    }
+
+    public String getPasswordErrorMessage() {
+        return passwordInputTextField.getAttribute("validationMessage");
+    }
 
 }

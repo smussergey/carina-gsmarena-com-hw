@@ -11,6 +11,9 @@ public class LoginPage extends AbstractPage {
     @FindBy(xpath = "//div[contains(@class, 'res-success')]//h3[contains (text(), 'Login successful.')]")
     private ExtendedWebElement loginSuccessfulTitle;
 
+    @FindBy(xpath = "//div[contains(@class, 'res-error')]//h3[contains (text(), 'Login failed.')]")
+    private ExtendedWebElement loginFailedTitle;
+
     public LoginPage(WebDriver driver) {
         super(driver);
         setPageAbsoluteURL(loginPageUrl);
@@ -18,5 +21,9 @@ public class LoginPage extends AbstractPage {
 
     public boolean isLoginSuccessfulTitleVisible() {
         return loginSuccessfulTitle.isVisible();
+    }
+
+    public boolean isLoginFailedTitleVisible() {
+        return loginFailedTitle.isVisible();
     }
 }
