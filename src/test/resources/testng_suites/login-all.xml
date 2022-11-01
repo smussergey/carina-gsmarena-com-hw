@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite verbose="1" name="GSMArena Demo Tests - Login tests" parallel="methods">
 
-    <test name="GSM arena web tests">
+    <test name="Login tests">
         <classes>
             <class name="com.solvd.gsmarena.LogInTest" />
         </classes>
