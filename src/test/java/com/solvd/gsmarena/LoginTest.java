@@ -1,6 +1,7 @@
 package com.solvd.gsmarena;
 
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
+import com.qaprosoft.carina.core.foundation.dataprovider.annotations.XlsDataSourceParameters;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
 import com.qaprosoft.carina.core.foundation.utils.tag.Priority;
 import com.qaprosoft.carina.core.foundation.utils.tag.TestPriority;
@@ -14,7 +15,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class LogInTest implements IAbstractTest {
+public class LoginTest implements IAbstractTest {
 
     private static final String TEST_DATA_EMAIL = "semtestsem029@gmail.com";
     private static final String TEST_DATA_PASSWORD = "myPassword7";
@@ -148,6 +149,41 @@ public class LogInTest implements IAbstractTest {
 
         SoftAssert softAssert = new SoftAssert();
         if (isLoginPageOpened) {
+            Assert.assertTrue(loginPage.isPageOpened(), "Login page is not opened");
+            softAssert.assertTrue(loginPage.isLoginFailedTitleVisible(), "Login failed title is not visible");
+        } else if (!emailErrorMessage.isEmpty() && !passwordErrorMessage.isEmpty()) {
+            softAssert.assertEquals(popUp.getEmailErrorMessage(), emailErrorMessage, "Email Error message is not correct");
+        } else {
+            softAssert.assertEquals(popUp.getEmailErrorMessage(), emailErrorMessage, "Email Error message is not correct");
+            softAssert.assertEquals(popUp.getPasswordErrorMessage(), passwordErrorMessage, "Password Error message is not correct");
+        }
+
+        softAssert.assertAll();
+    }
+
+    @Test(description = "Test presence of correct error tooltip messages in login fields ",
+            dataProvider = "DataProvider")
+    @XlsDataSourceParameters(path = "xls/login-data.xlsx", sheet = "TestData", dsUid = "TUID", dsArgs = "email,password,emailErrorMessage,passwordErrorMessage,isLoginPageOpened")
+    @MethodOwner(owner = "Smus Sergii")
+    @TestPriority(Priority.P4)
+    @TestLabel(name = "feature", value = {"web", "acceptance"})
+    public void testLoginErrorTooltipMessagesUsingXLSDataProvider(String email, String password, String emailErrorMessage, String passwordErrorMessage, String isLoginPageOpened) {
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
+
+        TopBar topBar = homePage.getTopBar();
+        Assert.assertTrue(topBar.isUIObjectPresent(2), "Top bar wasn't found!");
+
+        LoginPopUp popUp = topBar.openLoginPopUp();
+        Assert.assertTrue(popUp.isUIObjectPresent(2), "Login pop up wasn't found!");
+
+        popUp.typeEmail(email);
+        popUp.typePassword(password);
+        LoginPage loginPage = popUp.clickLoginButton();
+
+        SoftAssert softAssert = new SoftAssert();
+        if (Boolean.valueOf(isLoginPageOpened)) {
             Assert.assertTrue(loginPage.isPageOpened(), "Login page is not opened");
             softAssert.assertTrue(loginPage.isLoginFailedTitleVisible(), "Login failed title is not visible");
         } else if (!emailErrorMessage.isEmpty() && !passwordErrorMessage.isEmpty()) {

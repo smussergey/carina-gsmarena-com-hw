@@ -1,11 +1,15 @@
 To run tests:
 //Test Class
-mvn test -Dtest="com.solvd.gsmarena.SignUpTest"
+mvn -Dtest="com.solvd.gsmarena.SignUpTest" clean test
+mvn -Dtest="com.solvd.gsmarena.LoginTest"#testFunctionalityOfLogInPopUpFields clean test
 
 //Suite
-mvn clean test -Dsuite=smoke-login-signup
+mvn -Dsuite=smoke-login-signup clean test
+mvn -Dsuite=login-xls-data clean test
 
 
+//All suites from pom.xml
+mvn clean test
 
 Тесткейс 1 ( реєстрація )
 1. Клікнути на кнопку Sing up ( має відкритись відповідна сторінка )

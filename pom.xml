@@ -16,7 +16,7 @@
         <carina-core_version>8.0.0</carina-core_version>
         <java.version>11</java.version>
         <zebrunner-agent.version>1.8.0</zebrunner-agent.version>
-<!--        <suite>sign-up</suite>-->
+        <suite>sign-up</suite>
     </properties>
 
     <repositories>
@@ -119,12 +119,14 @@
                     <argLine>-javaagent:${project.build.directory}/agent/zebrunner-agent.jar</argLine>
                     <useSystemClassLoader>false</useSystemClassLoader>
                     <suiteXmlFiles>
-<!--                        <suiteXmlFile>${project.build.directory}/test-classes/testng_suites/footer.xml</suiteXmlFile>-->
-<!--                        <suiteXmlFile>${project.build.directory}/test-classes/testng_suites/header.xml</suiteXmlFile>-->
-<!--                        <suiteXmlFile>${project.build.directory}/test-classes/testng_suites/login-all.xml</suiteXmlFile>-->
-                        <suiteXmlFile>${project.build.directory}/test-classes/testng_suites/sign-up.xml</suiteXmlFile>
-<!--                        <suiteXmlFile>${project.build.directory}/test-classes/testng_suites/footer.xml</suiteXmlFile>-->
-                        <suiteXmlFile>${project.build.directory}/test-classes/testng_suites/smoke-login-signup.xml</suiteXmlFile>
+                        <suiteXmlFile>${project.build.directory}/test-classes/testng_suites/${suite}.xml</suiteXmlFile>
+                        <!--                        <suiteXmlFile>${project.build.directory}/test-classes/testng_suites/footer.xml</suiteXmlFile>-->
+                        <!--                        <suiteXmlFile>${project.build.directory}/test-classes/testng_suites/header.xml</suiteXmlFile>-->
+                        <!--                        <suiteXmlFile>${project.build.directory}/test-classes/testng_suites/login-all.xml</suiteXmlFile>-->
+                        <!--                        <suiteXmlFile>${project.build.directory}/test-classes/testng_suites/login-xls-data.xml</suiteXmlFile>-->
+                        <!--                        <suiteXmlFile>${project.build.directory}/test-classes/testng_suites/sign-up.xml</suiteXmlFile>-->
+                        <!--                        <suiteXmlFile>${project.build.directory}/test-classes/testng_suites/footer.xml</suiteXmlFile>-->
+                        <!--                        <suiteXmlFile>${project.build.directory}/test-classes/testng_suites/smoke-login-signup.xml</suiteXmlFile>-->
                     </suiteXmlFiles>
                 </configuration>
             </plugin>

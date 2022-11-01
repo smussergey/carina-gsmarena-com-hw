@@ -1,14 +1,13 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite verbose="1" name="Suite - Login smoke tests" parallel="methods">
+<suite verbose="1" name="Suite - Login basic tests" parallel="methods">
 
     <test name="Login basic functionality">
         <classes>
             <class name="com.solvd.gsmarena.LoginTest">
                 <methods>
-                    <include name="testFunctionalityOfLogInPopUpFields"/>
+                    <include name="testLoginErrorTooltipMessagesUsingXLSDataProvider"/>
                 </methods>
             </class>
-            <class name="com.solvd.gsmarena.SignUpTest"/>
         </classes>
     </test>
 

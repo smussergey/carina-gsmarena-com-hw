@@ -3,7 +3,7 @@
 
     <test name="Login tests">
         <classes>
-            <class name="com.solvd.gsmarena.LogInTest" />
+            <class name="com.solvd.gsmarena.LoginTest" />
         </classes>
     </test>
 
