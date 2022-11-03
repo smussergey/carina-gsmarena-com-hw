@@ -9,7 +9,6 @@ import com.solvd.gsmarena.gui.components.LoginPopUp;
 import com.solvd.gsmarena.gui.components.TopBar;
 import com.solvd.gsmarena.gui.pages.HomePage;
 import com.solvd.gsmarena.gui.pages.LoginPage;
-import com.zebrunner.agent.core.annotation.TestLabel;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -22,8 +21,7 @@ public class LoginTest implements IAbstractTest {
 
     @Test(description = "Test presents, intractability of Login popup fields")
     @MethodOwner(owner = "Smus Sergii")
-    @TestPriority(Priority.P2)
-    @TestLabel(name = "feature", value = {"web", "smoke"})
+    @TestPriority(Priority.P1)
     public void testFunctionalityOfLogInPopUpFields() {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
@@ -57,8 +55,7 @@ public class LoginTest implements IAbstractTest {
 
     @Test(description = "Test login into account with valid data ")
     @MethodOwner(owner = "Smus Sergii")
-    @TestPriority(Priority.P1)
-    @TestLabel(name = "feature", value = {"web", "acceptance"})
+    @TestPriority(Priority.P2)
     public void testSuccessLoginToAccount() {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
@@ -79,10 +76,9 @@ public class LoginTest implements IAbstractTest {
     }
 
     @Test(description = "Test presence of correct error tooltip messages in login fields ",
-            dataProvider = "method-data-provider")
+            dataProvider = "login-method-data-provider")
     @MethodOwner(owner = "Smus Sergii")
     @TestPriority(Priority.P3)
-    @TestLabel(name = "feature", value = {"web", "acceptance"})
     public void testLoginErrorTooltipMessagesUsingMethodDataProvider(String email, String password, String emailErrorMessage, String passwordErrorMessage, boolean isLoginPageOpened) {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
@@ -113,7 +109,7 @@ public class LoginTest implements IAbstractTest {
     }
 
 
-    @DataProvider(name = "method-data-provider")
+    @DataProvider(name = "login-method-data-provider")
     public Object[][] getTestDataAndErrorMessages() {
         return new Object[][]{
                 {"", "", "Please fill out this field.", "Please fill out this field.", false},
@@ -128,10 +124,9 @@ public class LoginTest implements IAbstractTest {
 
 
     @Test(description = "Test presence of correct error tooltip messages in login fields ",
-            dataProvider = "class-data-provider", dataProviderClass = DProvider.class)
+            dataProvider = "login-class-data-provider", dataProviderClass = DataProviderLogin.class)
     @MethodOwner(owner = "Smus Sergii")
     @TestPriority(Priority.P4)
-    @TestLabel(name = "feature", value = {"web", "acceptance"})
     public void testLoginErrorTooltipMessagesUsingClassDataProvider(String email, String password, String emailErrorMessage, String passwordErrorMessage, boolean isLoginPageOpened) {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
@@ -161,12 +156,11 @@ public class LoginTest implements IAbstractTest {
         softAssert.assertAll();
     }
 
-    @Test(description = "Test presence of correct error tooltip messages in login fields ",
+    @Test(description = "Test presence of correct error tooltip messages in login fields",
             dataProvider = "DataProvider")
-    @XlsDataSourceParameters(path = "xls/login-data.xlsx", sheet = "TestData", dsUid = "TUID", dsArgs = "email,password,emailErrorMessage,passwordErrorMessage,isLoginPageOpened")
+    @XlsDataSourceParameters(path = "xls/login-data-provider.xlsx", sheet = "TestData", dsUid = "TUID", dsArgs = "email,password,emailErrorMessage,passwordErrorMessage,isLoginPageOpened")
     @MethodOwner(owner = "Smus Sergii")
-    @TestPriority(Priority.P4)
-    @TestLabel(name = "feature", value = {"web", "acceptance"})
+    @TestPriority(Priority.P5)
     public void testLoginErrorTooltipMessagesUsingXLSDataProvider(String email, String password, String emailErrorMessage, String passwordErrorMessage, String isLoginPageOpened) {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();

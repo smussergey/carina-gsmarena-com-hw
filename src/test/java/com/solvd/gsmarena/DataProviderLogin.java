@@ -1,8 +1,8 @@
 package com.solvd.gsmarena;
 
 import org.testng.annotations.DataProvider;
-public class DProvider {
-    @DataProvider (name = "class-data-provider")
+public class DataProviderLogin {
+    @DataProvider (name = "login-class-data-provider")
     public Object[][] getTestDataAndErrorMessages() {
         return new Object[][]{
                 {"", "", "Please fill out this field.", "Please fill out this field.", false},

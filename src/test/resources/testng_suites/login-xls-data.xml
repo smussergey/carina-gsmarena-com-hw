@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite verbose="1" name="Suite - Login basic tests" parallel="methods">
+<suite verbose="1" name="Suite - Login basic tests">
 
     <test name="Login basic functionality">
         <classes>

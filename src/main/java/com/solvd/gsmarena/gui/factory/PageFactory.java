@@ -1,8 +1,8 @@
 package com.solvd.gsmarena.gui.factory;
 
 import com.qaprosoft.carina.core.gui.AbstractPage;
-import com.solvd.gsmarena.enums.FooterMenuButton;
-import com.solvd.gsmarena.enums.HeaderMenuButton;
+import com.solvd.gsmarena.gui.enums.FooterMenuButton;
+import com.solvd.gsmarena.gui.enums.HeaderMenuButton;
 import com.solvd.gsmarena.gui.pages.*;
 import com.solvd.gsmarena.gui.pages.othersites.*;
 import org.openqa.selenium.WebDriver;

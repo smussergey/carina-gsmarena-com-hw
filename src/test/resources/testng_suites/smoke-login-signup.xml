@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite verbose="1" name="Suite - Login smoke tests" parallel="methods">
+<suite verbose="1" name="Suite - Login and Sign up smoke tests">
 
-    <test name="Login basic functionality">
+    <test name="Login and Sign up basic functionality tests">
         <classes>
             <class name="com.solvd.gsmarena.LoginTest">
                 <methods>

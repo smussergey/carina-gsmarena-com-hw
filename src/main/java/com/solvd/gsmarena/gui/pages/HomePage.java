@@ -1,6 +1,6 @@
 package com.solvd.gsmarena.gui.pages;
 
-import com.solvd.gsmarena.enums.FooterMenuButton;
+import com.solvd.gsmarena.gui.enums.FooterMenuButton;
 import com.solvd.gsmarena.gui.components.FooterMenu;
 import com.solvd.gsmarena.gui.components.HeaderMenu;
 import com.solvd.gsmarena.gui.components.TopBar;

@@ -1,7 +1,7 @@
 package com.solvd.gsmarena.gui.components;
 
 import com.qaprosoft.carina.core.gui.AbstractPage;
-import com.solvd.gsmarena.enums.FooterMenuButton;
+import com.solvd.gsmarena.gui.enums.FooterMenuButton;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
 import com.solvd.gsmarena.gui.factory.PageFactory;

@@ -1,4 +1,4 @@
-package com.solvd.gsmarena.enums;
+package com.solvd.gsmarena.gui.enums;
 
 public enum HeaderMenuButton {
     HOME("Home"),

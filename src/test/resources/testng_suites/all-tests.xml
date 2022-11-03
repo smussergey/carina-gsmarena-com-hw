@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite verbose="1" name="GSMArena Demo Tests - All tests" parallel="methods">
+<suite verbose="1" name="GSMArena Demo Tests - All tests">
 
     <test name="All tests">
         <classes>

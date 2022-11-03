@@ -6,9 +6,6 @@ import com.solvd.gsmarena.gui.pages.SignUpPage;
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.core.foundation.utils.StringGenerator;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
-import com.qaprosoft.carina.core.foundation.utils.tag.Priority;
-import com.qaprosoft.carina.core.foundation.utils.tag.TestPriority;
-import com.zebrunner.agent.core.annotation.TestLabel;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -16,8 +13,6 @@ public class SignUpTest implements IAbstractTest {
 
     @Test(description = "Test confirmation registration is shown when registration data is correct")
     @MethodOwner(owner = "Smus Sergii")
-    @TestPriority(Priority.P1)
-    @TestLabel(name = "feature", value = {"web", "smoke"})
     public void testRegistrationOfNewAccount() {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
