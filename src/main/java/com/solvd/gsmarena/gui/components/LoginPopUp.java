@@ -86,7 +86,7 @@ public class LoginPopUp extends AbstractUIObject {
 
     public String getLoginButtonColor() {
         loginButton.pause(1);
-    return loginButton.getElement().getCssValue("background");
+        return loginButton.getElement().getCssValue("background");
     }
 
     public LoginPage clickLoginButton() {
@@ -110,4 +110,10 @@ public class LoginPopUp extends AbstractUIObject {
         return passwordInputTextField.getAttribute("validationMessage");
     }
 
+    public LoginPage loginIntoAccount(String email, String password) {
+        typeEmail(email);
+        typePassword(password);
+        clickLoginButton();
+        return new LoginPage(driver);
+    }
 }

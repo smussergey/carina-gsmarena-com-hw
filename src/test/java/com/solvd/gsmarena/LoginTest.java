@@ -23,15 +23,7 @@ public class LoginTest implements IAbstractTest {
     @MethodOwner(owner = "Smus Sergii")
     @TestPriority(Priority.P1)
     public void testFunctionalityOfLogInPopUpFields() {
-        HomePage homePage = new HomePage(getDriver());
-        homePage.open();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
-
-        TopBar topBar = homePage.getTopBar();
-        Assert.assertTrue(topBar.isUIObjectPresent(2), "Top bar wasn't found!");
-
-        LoginPopUp popUp = topBar.openLoginPopUp();
-        Assert.assertTrue(popUp.isUIObjectPresent(2), "Login pop up wasn't found!");
+        LoginPopUp popUp = validateOpeningLoginPopUp();
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(popUp.isTitlePresent(), "Title is not present");
@@ -53,58 +45,33 @@ public class LoginTest implements IAbstractTest {
         softAssert.assertAll();
     }
 
+
     @Test(description = "Test login into account with valid data ")
     @MethodOwner(owner = "Smus Sergii")
     @TestPriority(Priority.P2)
     public void testSuccessLoginToAccount() {
-        HomePage homePage = new HomePage(getDriver());
-        homePage.open();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
-
-        TopBar topBar = homePage.getTopBar();
-        Assert.assertTrue(topBar.isUIObjectPresent(2), "Top bar wasn't found!");
-
-        LoginPopUp popUp = topBar.openLoginPopUp();
-        Assert.assertTrue(popUp.isUIObjectPresent(2), "Login pop up wasn't found!");
-
-        popUp.typeEmail(TEST_DATA_EMAIL);
-        popUp.typePassword(TEST_DATA_PASSWORD);
-        LoginPage loginPage = popUp.clickLoginButton();
+        LoginPopUp popUp = validateOpeningLoginPopUp();
+        LoginPage loginPage = popUp.loginIntoAccount(TEST_DATA_EMAIL, TEST_DATA_PASSWORD);
 
         Assert.assertTrue(loginPage.isPageOpened(), "Login page is not opened");
         Assert.assertTrue(loginPage.isLoginSuccessfulTitleVisible(), "Login is not successful");
     }
 
+
     @Test(description = "Test presence of correct error tooltip messages in login fields ",
             dataProvider = "login-method-data-provider")
     @MethodOwner(owner = "Smus Sergii")
     @TestPriority(Priority.P3)
-    public void testLoginErrorTooltipMessagesUsingMethodDataProvider(String email, String password, String emailErrorMessage, String passwordErrorMessage, boolean isLoginPageOpened) {
-        HomePage homePage = new HomePage(getDriver());
-        homePage.open();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
-
-        TopBar topBar = homePage.getTopBar();
-        Assert.assertTrue(topBar.isUIObjectPresent(2), "Top bar wasn't found!");
-
-        LoginPopUp popUp = topBar.openLoginPopUp();
-        Assert.assertTrue(popUp.isUIObjectPresent(2), "Login pop up wasn't found!");
-
-        popUp.typeEmail(email);
-        popUp.typePassword(password);
-        LoginPage loginPage = popUp.clickLoginButton();
+    public void testLoginErrorTooltipMessagesUsingMethodDataProvider(String email,
+                                                                     String password,
+                                                                     String emailErrorMessage,
+                                                                     String passwordErrorMessage,
+                                                                     String isLoginPageOpened) {
+        LoginPopUp popUp = validateOpeningLoginPopUp();
+        LoginPage loginPage = popUp.loginIntoAccount(email, password);
 
         SoftAssert softAssert = new SoftAssert();
-        if (isLoginPageOpened) {
-            Assert.assertTrue(loginPage.isPageOpened(), "Login page is not opened");
-            softAssert.assertTrue(loginPage.isLoginFailedTitleVisible(), "Login failed title is not visible");
-        } else if (!emailErrorMessage.isEmpty() && !passwordErrorMessage.isEmpty()) {
-            softAssert.assertEquals(popUp.getEmailErrorMessage(), emailErrorMessage, "Email Error message is not correct");
-        } else {
-            softAssert.assertEquals(popUp.getEmailErrorMessage(), emailErrorMessage, "Email Error message is not correct");
-            softAssert.assertEquals(popUp.getPasswordErrorMessage(), passwordErrorMessage, "Password Error message is not correct");
-        }
-
+        validateTooltipMessages(emailErrorMessage, passwordErrorMessage, isLoginPageOpened, popUp, loginPage, softAssert);
         softAssert.assertAll();
     }
 
@@ -112,13 +79,13 @@ public class LoginTest implements IAbstractTest {
     @DataProvider(name = "login-method-data-provider")
     public Object[][] getTestDataAndErrorMessages() {
         return new Object[][]{
-                {"", "", "Please fill out this field.", "Please fill out this field.", false},
-                {"wrong@gmail.com", "", "", "Please fill out this field.", false},
-                {"", "bcshbcddd", "Please fill out this field.", "", false},
-                {"vc55vghfdv@", "efwecwec", String.format("Please enter a part following '@'. '%s' is incomplete.", "vc55vghfdv@"), "", false},
-                {"vcvghfcvddvgmail.com", "myPassword7", String.format("Please include an '@' in the email address. '%s' is missing an '@'.", "vcvghfcvddvgmail.com"), "", false},
-                {"semtestsem029@gmail.com", "djc", "", "Please match the requested format.", false},
-                {"fdssvghfdv@gmail.com", "myPassword7", "", "", true}
+                {"", "", "Please fill out this field.", "Please fill out this field.", "false"},
+                {"wrong@gmail.com", "", "", "Please fill out this field.", "false"},
+                {"", "bcshbcddd", "Please fill out this field.", "", "false"},
+                {"vc55vghfdv@", "efwecwec", String.format("Please enter a part following '@'. '%s' is incomplete.", "vc55vghfdv@"), "", "false"},
+                {"vcvghfcvddvgmail.com", "myPassword7", String.format("Please include an '@' in the email address. '%s' is missing an '@'.", "vcvghfcvddvgmail.com"), "", "false"},
+                {"semtestsem029@gmail.com", "djc", "", "Please match the requested format.", "false"},
+                {"fdssvghfdv@gmail.com", "myPassword7", "", "", "true"}
         };
     }
 
@@ -127,41 +94,40 @@ public class LoginTest implements IAbstractTest {
             dataProvider = "login-class-data-provider", dataProviderClass = DataProviderLogin.class)
     @MethodOwner(owner = "Smus Sergii")
     @TestPriority(Priority.P4)
-    public void testLoginErrorTooltipMessagesUsingClassDataProvider(String email, String password, String emailErrorMessage, String passwordErrorMessage, boolean isLoginPageOpened) {
-        HomePage homePage = new HomePage(getDriver());
-        homePage.open();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
-
-        TopBar topBar = homePage.getTopBar();
-        Assert.assertTrue(topBar.isUIObjectPresent(2), "Top bar wasn't found!");
-
-        LoginPopUp popUp = topBar.openLoginPopUp();
-        Assert.assertTrue(popUp.isUIObjectPresent(2), "Login pop up wasn't found!");
-
-        popUp.typeEmail(email);
-        popUp.typePassword(password);
-        LoginPage loginPage = popUp.clickLoginButton();
+    public void testLoginErrorTooltipMessagesUsingClassDataProvider(String email,
+                                                                    String password,
+                                                                    String emailErrorMessage,
+                                                                    String passwordErrorMessage,
+                                                                    String isLoginPageOpened) {
+        LoginPopUp popUp = validateOpeningLoginPopUp();
+        LoginPage loginPage = popUp.loginIntoAccount(email, password);
 
         SoftAssert softAssert = new SoftAssert();
-        if (isLoginPageOpened) {
-            Assert.assertTrue(loginPage.isPageOpened(), "Login page is not opened");
-            softAssert.assertTrue(loginPage.isLoginFailedTitleVisible(), "Login failed title is not visible");
-        } else if (!emailErrorMessage.isEmpty() && !passwordErrorMessage.isEmpty()) {
-            softAssert.assertEquals(popUp.getEmailErrorMessage(), emailErrorMessage, "Email Error message is not correct");
-        } else {
-            softAssert.assertEquals(popUp.getEmailErrorMessage(), emailErrorMessage, "Email Error message is not correct");
-            softAssert.assertEquals(popUp.getPasswordErrorMessage(), passwordErrorMessage, "Password Error message is not correct");
-        }
-
+        validateTooltipMessages(emailErrorMessage, passwordErrorMessage, isLoginPageOpened, popUp, loginPage, softAssert);
         softAssert.assertAll();
     }
+
 
     @Test(description = "Test presence of correct error tooltip messages in login fields",
             dataProvider = "DataProvider")
     @XlsDataSourceParameters(path = "xls/login-data-provider.xlsx", sheet = "TestData", dsUid = "TUID", dsArgs = "email,password,emailErrorMessage,passwordErrorMessage,isLoginPageOpened")
     @MethodOwner(owner = "Smus Sergii")
     @TestPriority(Priority.P5)
-    public void testLoginErrorTooltipMessagesUsingXLSDataProvider(String email, String password, String emailErrorMessage, String passwordErrorMessage, String isLoginPageOpened) {
+    public void testLoginErrorTooltipMessagesUsingXLSDataProvider(String email,
+                                                                  String password,
+                                                                  String emailErrorMessage,
+                                                                  String passwordErrorMessage,
+                                                                  String isLoginPageOpened) {
+        LoginPopUp popUp = validateOpeningLoginPopUp();
+        LoginPage loginPage = popUp.loginIntoAccount(email, password);
+
+        SoftAssert softAssert = new SoftAssert();
+        validateTooltipMessages(emailErrorMessage, passwordErrorMessage, isLoginPageOpened, popUp, loginPage, softAssert);
+        softAssert.assertAll();
+    }
+
+
+    private LoginPopUp validateOpeningLoginPopUp() {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
@@ -171,13 +137,16 @@ public class LoginTest implements IAbstractTest {
 
         LoginPopUp popUp = topBar.openLoginPopUp();
         Assert.assertTrue(popUp.isUIObjectPresent(2), "Login pop up wasn't found!");
+        return popUp;
+    }
 
-        popUp.typeEmail(email);
-        popUp.typePassword(password);
-        LoginPage loginPage = popUp.clickLoginButton();
-
-        SoftAssert softAssert = new SoftAssert();
-        if (Boolean.valueOf(isLoginPageOpened)) {
+    private void validateTooltipMessages(String emailErrorMessage,
+                                         String passwordErrorMessage,
+                                         String isLoginPageOpened,
+                                         LoginPopUp popUp,
+                                         LoginPage loginPage,
+                                         SoftAssert softAssert) {
+        if (Boolean.parseBoolean(isLoginPageOpened)) {
             Assert.assertTrue(loginPage.isPageOpened(), "Login page is not opened");
             softAssert.assertTrue(loginPage.isLoginFailedTitleVisible(), "Login failed title is not visible");
         } else if (!emailErrorMessage.isEmpty() && !passwordErrorMessage.isEmpty()) {
@@ -186,7 +155,6 @@ public class LoginTest implements IAbstractTest {
             softAssert.assertEquals(popUp.getEmailErrorMessage(), emailErrorMessage, "Email Error message is not correct");
             softAssert.assertEquals(popUp.getPasswordErrorMessage(), passwordErrorMessage, "Password Error message is not correct");
         }
-
-        softAssert.assertAll();
     }
+
 }
